@@ -1,0 +1,10 @@
+{
+  "requests": [
+    {
+      "filterRequest": {
+        "inputFilePath": "<Absolute file path to the feed file>",
+        "anyQuery": "AvailabilityThresholdType='MORE_THAN' AND AvailabilityThreshold=10"
+      }
+    }
+  ]
+}

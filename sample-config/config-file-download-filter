@@ -1,0 +1,96 @@
+{
+  "requests": [
+    {
+      "feedRequest": {
+        "categoryId": "550",
+        "marketplaceId": "EBAY_US",
+        "feedScope": "ALL_ACTIVE",
+        "type": "ITEM"
+      },
+      "filterRequest": {
+        "sellerNames": [
+          "patikaszop",
+          "cherp-serge",
+          "itemtrade"
+        ],
+        "itemLocationCountries": [
+          "US",
+          "HK",
+          "CA"
+        ],
+        "priceLowerLimit": 10.0,
+        "priceUpperLimit": 100.0
+      }
+    },
+    {
+      "feedRequest": {
+        "categoryId": "260",
+        "marketplaceId": "EBAY_GB",
+        "feedScope": "ALL_ACTIVE",
+        "type": "ITEM"
+      },
+      "filterRequest": {
+        "leafCategoryIds": [
+          "162057",
+          "705"
+        ],
+        "priceUpperLimit": 10
+      }
+    },
+    {
+      "feedRequest": {
+        "categoryId": "1281",
+        "marketplaceId": "EBAY_US",
+        "feedScope": "ALL_ACTIVE",
+        "type": "ITEM"
+      },
+      "filterRequest": {
+        "anyQuery": "AcceptedPaymentMethods='PAYPAL'"
+      },
+      "itemLocationCountries": [
+          "CA"
+      ]
+    },
+    {
+      "feedRequest": {
+        "categoryId": "11232",
+        "marketplaceId": "EBAY_DE",
+        "date": "20180708",
+        "feedScope": "ALL_ACTIVE",
+        "type": "ITEM"
+      },
+      "filterRequest": {
+        "epids": [
+          "216949221",
+          "3927841"
+        ],
+        "inferredEpids": [
+          "216949221",
+          "3927841"
+        ]
+      }
+    },
+    {
+      "feedRequest": {
+        "categoryId": "220",
+        "marketplaceId": "EBAY_US",
+        "date": "20190304",
+        "feedScope": "NEWLY_LISTED",
+        "type": "ITEM"
+      },
+      "filterRequest": {
+        "leafCategoryIds": [
+          "122569",
+          "2537",
+          "34061",
+          "2624"
+        ],
+        "itemLocationCountries": [
+          "US"
+        ],
+        "priceLowerLimit": 10.0,
+        "priceUpperLimit": 140.0
+      }
+    }
+  ]
+}

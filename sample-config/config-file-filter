@@ -1,0 +1,21 @@
+{
+  "requests": [
+    {
+      "filterRequest": {
+        "inputFilePath": "<Absolute file path to the feed file>",
+        "leafCategoryIds": [
+          "112529",
+          "64619",
+          "111694"
+        ],
+        "itemLocationCountries": [
+          "DE",
+          "GB",
+          "ES"
+        ],
+        "anyQuery": "AvailabilityThresholdType='MORE_THAN' AND AvailabilityThreshold=10",
+        "fileFormat" : "gzip"
+      }
+    }
+  ]
+}

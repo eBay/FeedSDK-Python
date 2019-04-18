@@ -1,0 +1,47 @@
+{
+  "requests": [
+    {
+      "feedRequest": {
+        "categoryId": "260",
+        "marketplaceId": "EBAY_US",
+        "feedScope": "ALL_ACTIVE",
+        "type": "ITEM"
+      },
+      "filterRequest": {
+        "itemLocationCountries": [
+          "US",
+          "HK",
+          "CA"
+        ],
+        "priceLowerLimit": 10.0,
+        "priceUpperLimit": 100.0
+      }
+    },
+    {
+      "feedRequest": {
+        "categoryId": "220",
+        "marketplaceId": "EBAY_US",
+        "date": "20190127",
+        "feedScope": "NEWLY_LISTED",
+        "type": "ITEM"
+      }
+    },
+    {
+      "filterRequest": {
+        "inputFilePath": "/Users/[USER]/Desktop/sdk/test_bootstrap.gz",
+        "leafCategoryIds": [
+          "112529",
+          "64619",
+          "111694"
+        ],
+        "itemLocationCountries": [
+          "DE",
+          "GB",
+          "ES"
+        ],
+        "anyQuery": "AvailabilityThresholdType='MORE_THAN' AND AvailabilityThreshold=10",
+        "fileFormat" : "gzip"
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "requests": [
+    {
+      "feedRequest": {
+        "categoryId": "220",
+        "marketplaceId": "EBAY_US",
+        "feedScope": "ALL_ACTIVE",
+        "type": "ITEM",
+        "downloadLocation": "<Absolute path to the download directory>",
+        "fileFormat": "gzip"
+      }
+    },
+    {
+      "feedRequest": {
+        "categoryId": "11450",
+        "marketplaceId": "EBAY_DE",
+        "feedScope": "NEWLY_LISTED",
+        "date": "20190127",
+        "type": "ITEM"
+      }
+    }
+  ]
+}

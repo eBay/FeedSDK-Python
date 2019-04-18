@@ -1,0 +1,14 @@
+{
+  "requests": [
+    {
+      "feedRequest": {
+        "categoryId": "220",
+        "marketplaceId": "EBAY_US",
+        "feedScope": "ALL_ACTIVE",
+        "type": "ITEM",
+        "downloadLocation": "/Users/[USER]/Desktop/sdk",
+        "fileFormat": "gzip"
+      }
+    }
+  ]
+}
