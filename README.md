@@ -42,7 +42,7 @@ The the entire repository can be cloned/forked and changes can be made. You are 
 For setting up the project in your local environment
 * Clone or download the repository
 * Install the requirements
-To set up your environment, please see the requirements listed in [https://github.com/eBay/FeedSDK-Python/blob/master/requirements.txt). You can run $ pip install -r requirements.txt command to install all the requirements.
+To set up your environment, please see the requirements listed in [requirements.txt](https://github.com/eBay/FeedSDK-Python/blob/master/requirements.txt). You can run $ pip install -r requirements.txt command to install all the requirements.
 
 
 ## Downloading feed files
