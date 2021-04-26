@@ -75,7 +75,7 @@ class ConfigFileRequest(object):
                     filter_req.input_file_path = get_response.file_path
                 filter_response = filter_req.filter()
                 if filter_response.status_code != SUCCESS_CODE:
-                    print filter_response.message
+                    print(filter_response.message)
         return True
 
     def __load_config(self):
