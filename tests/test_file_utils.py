@@ -73,15 +73,15 @@ class TestFileUtils(unittest.TestCase):
 
     def test_find_next_range_none_range_header(self):
         next_range = file_utils.find_next_range(None, 100)
-        self.assertEquals(next_range, 'bytes=0-100')
+        self.assertEqual(next_range, 'bytes=0-100')
 
     def test_find_next_range_none_chunk(self):
         next_range = file_utils.find_next_range('0-1000/718182376', None)
-        self.assertEquals(next_range, 'bytes=1001-%s' % (SANDBOX_CHUNK_SIZE + 1001))
+        self.assertEqual(next_range, 'bytes=1001-%s' % (SANDBOX_CHUNK_SIZE + 1001))
 
     def test_find_next_range(self):
         next_range = file_utils.find_next_range('1001-2001/718182376', 1000)
-        self.assertEquals(next_range, 'bytes=2002-3002')
+        self.assertEqual(next_range, 'bytes=2002-3002')
 
     def test_get_file_extension_none(self):
         ext = file_utils.get_extension(None)
@@ -94,12 +94,12 @@ class TestFileUtils(unittest.TestCase):
     def test_get_file_name_dir(self):
         test_dir = os.path.expanduser('../feed-sdk/tests')
         returned_dir_name = file_utils.get_file_name(test_dir)
-        self.assertEquals(returned_dir_name, 'tests')
+        self.assertEqual(returned_dir_name, 'tests')
 
     def test_get_file_name(self):
         test_dir = os.path.expanduser('../feed-sdk/tests/test_json')
         returned_file_name = file_utils.get_file_name(test_dir)
-        self.assertEquals(returned_file_name, 'test_json')
+        self.assertEqual(returned_file_name, 'test_json')
 
     def test_get_file_name_none(self):
         with self.assertRaises(InputDataError):
@@ -107,7 +107,7 @@ class TestFileUtils(unittest.TestCase):
 
     def test_get_file_name_name(self):
         test_file_name = 'abc.txt'
-        self.assertEquals(file_utils.get_file_name(test_file_name), test_file_name)
+        self.assertEqual(file_utils.get_file_name(test_file_name), test_file_name)
 
     def test_read_json(self):
         json_obj = file_utils.read_json('../tests/test-data/test_json')

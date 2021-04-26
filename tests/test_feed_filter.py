@@ -26,57 +26,57 @@ class TestFeed(unittest.TestCase):
         self.assertIsNone(filter_request.item_location_countries)
         self.assertIsNone(filter_request.any_query)
         self.assertIsNone(filter_request.filtered_file_path)
-        self.assertEquals(filter_request.compression_type, FileFormat.GZIP.value)
-        self.assertEquals(filter_request.separator, '\t')
-        self.assertEquals(filter_request.encoding, FileEncoding.UTF8.value)
-        self.assertEquals(filter_request.rows_chunk_size, DATA_FRAME_CHUNK_SIZE)
-        self.assertEquals(filter_request.number_of_records, 0)
-        self.assertEquals(filter_request.number_of_filtered_records, 0)
-        self.assertEquals(len(filter_request.queries), 0)
+        self.assertEqual(filter_request.compression_type, FileFormat.GZIP.value)
+        self.assertEqual(filter_request.separator, '\t')
+        self.assertEqual(filter_request.encoding, FileEncoding.UTF8.value)
+        self.assertEqual(filter_request.rows_chunk_size, DATA_FRAME_CHUNK_SIZE)
+        self.assertEqual(filter_request.number_of_records, 0)
+        self.assertEqual(filter_request.number_of_filtered_records, 0)
+        self.assertEqual(len(filter_request.queries), 0)
 
     def test_any_query_format(self):
         filter_request = FeedFilterRequest(self.test_file_path, any_query=self.test_any_query)
-        self.assertEquals(filter_request.any_query, '(' + self.test_any_query + ')')
+        self.assertEqual(filter_request.any_query, '(' + self.test_any_query + ')')
 
     def test_none_file_path(self):
         filter_request = FeedFilterRequest(None)
         filter_response = filter_request.filter()
-        self.assertEquals(filter_response.status_code, FAILURE_CODE)
+        self.assertEqual(filter_response.status_code, FAILURE_CODE)
         self.assertIsNotNone(filter_response.message)
         self.assertIsNone(filter_response.file_path)
-        self.assertEquals(len(filter_response.applied_filters), 0)
+        self.assertEqual(len(filter_response.applied_filters), 0)
 
     def test_dir_file_path(self):
         filter_request = FeedFilterRequest('../tests/test-data')
         filter_response = filter_request.filter()
-        self.assertEquals(filter_response.status_code, FAILURE_CODE)
+        self.assertEqual(filter_response.status_code, FAILURE_CODE)
         self.assertIsNotNone(filter_response.message)
         self.assertIsNone(filter_response.file_path)
-        self.assertEquals(len(filter_response.applied_filters), 0)
+        self.assertEqual(len(filter_response.applied_filters), 0)
 
     def test_no_query(self):
         filter_request = FeedFilterRequest(self.test_file_path)
         filter_response = filter_request.filter()
-        self.assertEquals(filter_response.status_code, FAILURE_CODE)
+        self.assertEqual(filter_response.status_code, FAILURE_CODE)
         self.assertIsNotNone(filter_response.message)
         self.assertIsNone(filter_response.file_path)
-        self.assertEquals(len(filter_response.applied_filters), 0)
+        self.assertEqual(len(filter_response.applied_filters), 0)
 
     def test_apply_filters(self):
         filter_request = FeedFilterRequest(self.test_file_path, price_upper_limit=10, any_query=self.test_any_query)
         filter_response = filter_request.filter(keep_db=False)
-        self.assertEquals(filter_response.status_code, SUCCESS_CODE)
+        self.assertEqual(filter_response.status_code, SUCCESS_CODE)
         self.assertIsNotNone(filter_response.message)
 
-        self.assertEquals(len(filter_request.queries), 2)
-        self.assertEquals(len(filter_response.applied_filters), 2)
+        self.assertEqual(len(filter_request.queries), 2)
+        self.assertEqual(len(filter_response.applied_filters), 2)
 
         self.assertTrue(filter_request.number_of_records > 0)
         self.assertTrue(filter_request.number_of_filtered_records > 0)
 
         self.assertIsNotNone(filter_request.filtered_file_path)
         self.assertTrue(isfile(filter_request.filtered_file_path))
-        self.assertEquals(filter_request.filtered_file_path, filter_response.file_path)
+        self.assertEqual(filter_request.filtered_file_path, filter_response.file_path)
         # clean up
         remove(filter_request.filtered_file_path)
 

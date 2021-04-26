@@ -27,25 +27,25 @@ class TestFeed(unittest.TestCase):
     def test_none_token(self):
         feed_req_obj = Feed(FeedType.ITEM.value, FeedScope.BOOTSTRAP.value, '220', 'EBAY_US', None)
         get_response = feed_req_obj.get()
-        self.assertEquals(get_response.status_code, FAILURE_CODE)
+        self.assertEqual(get_response.status_code, FAILURE_CODE)
         self.assertIsNotNone(get_response.message)
         self.assertIsNone(get_response.file_path, 'file_path is not None in the response')
 
     def test_default_values(self):
         feed_req_obj = Feed(None, None, '220', 'EBAY_US', 'v^1 ...')
-        self.assertEquals(feed_req_obj.feed_type, FeedType.ITEM.value)
-        self.assertEquals(feed_req_obj.feed_scope, FeedScope.DAILY.value)
+        self.assertEqual(feed_req_obj.feed_type, FeedType.ITEM.value)
+        self.assertEqual(feed_req_obj.feed_scope, FeedScope.DAILY.value)
         self.assertTrue(feed_req_obj.token.startswith('Bearer'), 'Bearer is missing from token')
-        self.assertEquals(feed_req_obj.feed_date, get_formatted_date(feed_req_obj.feed_type))
-        self.assertEquals(feed_req_obj.environment, Environment.PRODUCTION.value)
-        self.assertEquals(feed_req_obj.download_location, DEFAULT_DOWNLOAD_LOCATION)
-        self.assertEquals(feed_req_obj.file_format, FileFormat.GZIP.value)
+        self.assertEqual(feed_req_obj.feed_date, get_formatted_date(feed_req_obj.feed_type))
+        self.assertEqual(feed_req_obj.environment, Environment.PRODUCTION.value)
+        self.assertEqual(feed_req_obj.download_location, DEFAULT_DOWNLOAD_LOCATION)
+        self.assertEqual(feed_req_obj.file_format, FileFormat.GZIP.value)
 
     def test_download_feed_invalid_path(self):
         feed_req_obj = Feed(FeedType.ITEM.value, FeedScope.BOOTSTRAP.value, '220', 'EBAY_US', 'Bearer v^1 ...',
                             download_location='../tests/test-data/test_json')
         get_response = feed_req_obj.get()
-        self.assertEquals(get_response.status_code, FAILURE_CODE)
+        self.assertEqual(get_response.status_code, FAILURE_CODE)
         self.assertIsNotNone(get_response.message)
         self.assertIsNotNone(get_response.file_path, 'file_path is None in the response')
 
@@ -53,7 +53,7 @@ class TestFeed(unittest.TestCase):
         feed_req_obj = Feed(FeedType.ITEM.value, FeedScope.BOOTSTRAP.value, '220', 'EBAY_US', 'Bearer v^1 ...',
                             download_location='../tests/test-data/', feed_date='2019-02-01')
         get_response = feed_req_obj.get()
-        self.assertEquals(get_response.status_code, FAILURE_CODE)
+        self.assertEqual(get_response.status_code, FAILURE_CODE)
         self.assertIsNotNone(get_response.message)
         self.assertIsNotNone(get_response.file_path, 'file_path is None in the response')
 
@@ -66,7 +66,7 @@ class TestFeed(unittest.TestCase):
         # store the file path for clean up
         self.file_paths.append(get_response.file_path)
         # assert the result
-        self.assertEquals(get_response.status_code, SUCCESS_CODE)
+        self.assertEqual(get_response.status_code, SUCCESS_CODE)
         self.assertIsNotNone(get_response.message)
         self.assertIsNotNone(get_response.file_path, 'file_path is None')
         self.assertTrue(isfile(get_response.file_path), 'file_path is not pointing to a file. file_path: %s'
@@ -78,7 +78,7 @@ class TestFeed(unittest.TestCase):
                         'feed file name does not have %s in it. file_path: %s' %
                         (FeedPrefix.DAILY.value, get_response.file_path))
         file_dir, file_name = split(abspath(get_response.file_path))
-        self.assertEquals(abspath(feed_req_obj.download_location), file_dir)
+        self.assertEqual(abspath(feed_req_obj.download_location), file_dir)
 
     def test_download_feed_daily_bad_request(self):
         # ask for a future feed file that does not exist
@@ -90,7 +90,7 @@ class TestFeed(unittest.TestCase):
         # store the file path for clean up
         self.file_paths.append(get_response.file_path)
         # assert the result
-        self.assertEquals(get_response.status_code, FAILURE_CODE)
+        self.assertEqual(get_response.status_code, FAILURE_CODE)
         self.assertIsNotNone(get_response.message)
         self.assertIsNotNone(get_response.file_path, 'file has not been created')
         self.assertTrue(isfile(get_response.file_path), 'file_path is not pointing to a file. file_path: %s'
@@ -102,7 +102,7 @@ class TestFeed(unittest.TestCase):
                         'feed file name does not have %s in it. file_path: %s'
                         % (FeedPrefix.DAILY.value, get_response.file_path))
         file_dir, file_name = split(abspath(get_response.file_path))
-        self.assertEquals(abspath(feed_req_obj.download_location), file_dir)
+        self.assertEqual(abspath(feed_req_obj.download_location), file_dir)
 
     def test_download_feed_daily_multiple_calls(self):
         feed_req_obj = Feed(FeedType.ITEM.value, FeedScope.BOOTSTRAP.value, self.test_category_2,
@@ -111,7 +111,7 @@ class TestFeed(unittest.TestCase):
         # store the file path for clean up
         self.file_paths.append(get_response.file_path)
         # assert the result
-        self.assertEquals(get_response.status_code, SUCCESS_CODE)
+        self.assertEqual(get_response.status_code, SUCCESS_CODE)
         self.assertIsNotNone(get_response.message)
         self.assertIsNotNone(get_response.file_path, 'file has not been created')
         self.assertTrue(isfile(get_response.file_path), 'file_path is not pointing to a file. file_path: %s'
@@ -123,7 +123,7 @@ class TestFeed(unittest.TestCase):
                         'feed file name does not have %s in it. file_path: %s'
                         % (FeedPrefix.BOOTSTRAP.value, get_response.file_path))
         file_dir, file_name = split(abspath(get_response.file_path))
-        self.assertEquals(abspath(feed_req_obj.download_location), file_dir)
+        self.assertEqual(abspath(feed_req_obj.download_location), file_dir)
 
 
 if __name__ == '__main__':

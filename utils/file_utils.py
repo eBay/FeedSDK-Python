@@ -70,9 +70,9 @@ def find_next_range(content_range_header, chunk_size=const.SANDBOX_CHUNK_SIZE):
         try:
             # ex. content-range : 0-1000/7181823761
             range_components = content_range_header.split('/')
-            total_size = long(range_components[1])
+            total_size = int(range_components[1])
             bounds = range_components[0].split('-')
-            upper_bound = long(bounds[1]) + 1
+            upper_bound = int(bounds[1]) + 1
             if upper_bound > total_size:
                 return ''
             return const.RANGE_PREFIX + str(upper_bound) + '-' + str(upper_bound + chunk)

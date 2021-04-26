@@ -78,7 +78,7 @@ if args.filteronly:
                                         args.format)
     filter_response = feed_filter_obj.filter()
     if filter_response.status_code != SUCCESS_CODE:
-        print filter_response.message
+        print(filter_response.message)
 
 else:
     # download the feed file if --filteronly option is not set
@@ -95,10 +95,10 @@ else:
                                             args.format)
         filter_response = feed_filter_obj.filter()
         if filter_response.status_code != SUCCESS_CODE:
-            print filter_response.message
+            print(filter_response.message)
 end = time.time()
 logger.info('Execution time (s): %s', str(round(end - start, 3)))
-print 'Execution time (s): %s' % str(round(end - start, 3))
+print('Execution time (s): %s' % str(round(end - start, 3)))
 
 
 
