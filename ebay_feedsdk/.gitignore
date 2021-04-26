@@ -1,0 +1,12 @@
+.idea/
+venv/
+## File-based project format:
+*.iws
+
+# IntelliJ
+out/
+
+# Python
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+*$py.class
