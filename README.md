@@ -1,10 +1,13 @@
 Feed SDK
 ==========
-Python SDK for downloading and filtering item feed files
+Python SDK for downloading and filtering item feed files including oauth authentication.
 
-Forked from [https://github.com/eBay/FeedSDK-Python](https://github.com/eBay/FeedSDK-Python) and [https://github.com/eBay/ebay-oauth-python-client](https://github.com/eBay/ebay-oauth-python-client) and ported to python3
+Forked and merged from [https://github.com/eBay/FeedSDK-Python](https://github.com/eBay/FeedSDK-Python) and [https://github.com/eBay/ebay-oauth-python-client](https://github.com/eBay/ebay-oauth-python-client) and ported to python3
 
-Nothing serious changed, made it barely working. Code is not improved yet and would need some maintenance. 
+Nothing serious changed, made it barely working. 
+
+Code is not improved yet and would need some maintenance. 
+
 Automatic Tests not working due to the nature the tests were original programmed (you need to provide actual token etc.)
 
 Available as PyPI package under https://pypi.org/project/ebay-feedsdk/
@@ -49,6 +52,8 @@ class EbayDownloadExample:
 
         logging.info(f'File was downloaded under {feed_response.file_path}')
 
+        return feed_response.file_path
+
     def get_token(self) -> OauthToken:
         Credentialutil.load(self.config_file)
         oauth2api = Oauth2api()
@@ -66,9 +71,9 @@ if __name__ == "__main__":
     download_location = '/tmp/feed'
     category_id = '2984'  # string ..
     ebay_download = EbayDownloadExample(market_place, Environment.PRODUCTION, feed_scope, download_location)
-    ebay_download.download(category_id)
-
+    file_path = ebay_download.download(category_id)
 ```
-See also 
+See also for details:
+
 * [https://github.com/eBay/ebay-oauth-python-client/blob/master/README.adoc](https://github.com/eBay/ebay-oauth-python-client/blob/master/README.adoc)
-* [https://github.com/eBay/FeedSDK-Python](https://github.com/eBay/FeedSDK-Python)
+* [https://github.com/eBay/FeedSDK-Python/blob/master/README.md](https://github.com/eBay/FeedSDK-Python/blob/master/README.md)
