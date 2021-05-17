@@ -1,1 +1,1 @@
-poetry publish --build --dry-run
+poetry publish --build
