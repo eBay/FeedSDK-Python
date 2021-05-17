@@ -1,3 +1,7 @@
 .idea
 ebay_feedsdk/feed-sdk*
+ebay_feedsdk/tests/sdk/feed-sdk*
+ebay_feedsdk/tests/.DS_Store
+ebay_feedsdk/tests/tests
 dist
+ebay_feedsdk/ebay-config.yaml

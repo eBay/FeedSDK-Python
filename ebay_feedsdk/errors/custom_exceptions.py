@@ -47,3 +47,8 @@ class InputDataError(Error):
     def __init__(self, msg, input_data=None):
         self.msg = msg
         self.input_data = input_data
+
+
+class DownloadError(Error):
+    def __init__(self, msg):
+        self.msg = msg
