@@ -18,7 +18,7 @@
 import logging
 from os import path
 from utils.file_utils import read_json
-from feed.feed_request import Feed
+from feed import Feed
 from filter.feed_filter import FeedFilterRequest
 from constants.feed_constants import SUCCESS_CODE
 from enums.config_enums import ConfigField, FeedField, FilterField

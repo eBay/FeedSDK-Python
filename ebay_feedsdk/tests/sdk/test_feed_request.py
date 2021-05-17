@@ -4,7 +4,7 @@ from os.path import isfile, getsize, split, abspath
 from utils.date_utils import get_formatted_date
 from enums.file_enums import FileFormat
 from enums.feed_enums import FeedType, FeedScope, FeedPrefix, Environment
-from feed.feed_request import Feed, DEFAULT_DOWNLOAD_LOCATION
+from feed import Feed, DEFAULT_DOWNLOAD_LOCATION
 from constants.feed_constants import SUCCESS_CODE, FAILURE_CODE, PROD_CHUNK_SIZE
 
 
@@ -43,7 +43,7 @@ class TestFeed(unittest.TestCase):
 
     def test_download_feed_invalid_path(self):
         feed_req_obj = Feed(FeedType.ITEM.value, FeedScope.BOOTSTRAP.value, '220', 'EBAY_US', 'Bearer v^1 ...',
-                            download_location='../tests/test-data/test_json')
+                            download_location='tests/sdk/test-data/test_json')
         get_response = feed_req_obj.get()
         self.assertEqual(get_response.status_code, FAILURE_CODE)
         self.assertIsNotNone(get_response.message)
@@ -51,7 +51,7 @@ class TestFeed(unittest.TestCase):
 
     def test_download_feed_invalid_date(self):
         feed_req_obj = Feed(FeedType.ITEM.value, FeedScope.BOOTSTRAP.value, '220', 'EBAY_US', 'Bearer v^1 ...',
-                            download_location='../tests/test-data/', feed_date='2019-02-01')
+                            download_location='tests/sdk/test-data/', feed_date='2019-02-01')
         get_response = feed_req_obj.get()
         self.assertEqual(get_response.status_code, FAILURE_CODE)
         self.assertIsNotNone(get_response.message)
@@ -60,7 +60,7 @@ class TestFeed(unittest.TestCase):
     def test_download_feed_daily(self):
         test_date = get_formatted_date(FeedType.ITEM, -4)
         feed_req_obj = Feed(FeedType.ITEM.value, FeedScope.DAILY.value, self.test_category_1,
-                            self.test_marketplace, self.test_token, download_location='../tests/test-data/',
+                            self.test_marketplace, self.test_token, download_location='tests/sdk/test-data/',
                             feed_date=test_date)
         get_response = feed_req_obj.get()
         # store the file path for clean up
@@ -84,9 +84,10 @@ class TestFeed(unittest.TestCase):
         # ask for a future feed file that does not exist
         test_date = get_formatted_date(FeedType.ITEM, 5)
         feed_req_obj = Feed(FeedType.ITEM.value, FeedScope.DAILY.value, self.test_category_1,
-                            self.test_marketplace, self.test_token, download_location='../tests/test-data/',
+                            self.test_marketplace, self.test_token, download_location='tests/sdk/test-data/',
                             feed_date=test_date)
         get_response = feed_req_obj.get()
+
         # store the file path for clean up
         self.file_paths.append(get_response.file_path)
         # assert the result
@@ -104,9 +105,9 @@ class TestFeed(unittest.TestCase):
         file_dir, file_name = split(abspath(get_response.file_path))
         self.assertEqual(abspath(feed_req_obj.download_location), file_dir)
 
-    def test_download_feed_daily_multiple_calls(self):
+    def __test_download_feed_daily_multiple_calls(self):
         feed_req_obj = Feed(FeedType.ITEM.value, FeedScope.BOOTSTRAP.value, self.test_category_2,
-                            self.test_marketplace, self.test_token, download_location='../tests/test-data/')
+                            self.test_marketplace, self.test_token, download_location='tests/sdk/test-data/')
         get_response = feed_req_obj.get()
         # store the file path for clean up
         self.file_paths.append(get_response.file_path)

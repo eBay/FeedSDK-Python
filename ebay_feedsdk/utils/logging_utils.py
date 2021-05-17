@@ -16,14 +16,18 @@
 # **************************************************************************/
 
 import logging
+import sys
 from datetime import datetime
 
 LOG_FILE_NAME = 'feed-sdk-log'
 LOG_FILE_EXTENSION = '.log'
-LOGGING_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+LOGGING_FORMAT = '%(asctime)s - [%(levelname)s] - %(message)s'
 
 log_file_name = LOG_FILE_NAME + '.' + datetime.now().strftime('%Y-%m-%d') + LOG_FILE_EXTENSION
 
 
 def setup_logging():
-    logging.basicConfig(filename=log_file_name, filemode='a', level=logging.DEBUG, format=LOGGING_FORMAT)
+    file_handler = logging.FileHandler(filename=log_file_name)
+    stdout_handler = logging.StreamHandler(sys.stdout)
+    handlers = [file_handler, stdout_handler]
+    logging.basicConfig(handlers=handlers, level=logging.DEBUG, format=LOGGING_FORMAT)

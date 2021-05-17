@@ -44,6 +44,8 @@ def create_and_replace_binary_file(file_path):
     :param file_path: The path to the file including the file name and extension
     :raise: if the file is not created successfully an FileCreationError exception is raised
     """
+    if file_path is None:
+        raise custom_exceptions.FileCreationError('File is None', file_path)
     try:
         if not exists(dirname(file_path)):
             makedirs(dirname(file_path))

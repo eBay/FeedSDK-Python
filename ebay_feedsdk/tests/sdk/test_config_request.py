@@ -2,12 +2,12 @@ import unittest
 from enums.file_enums import FileFormat
 from enums.feed_enums import FeedScope
 from config.config_request import ConfigFileRequest
-from feed.feed_request import DEFAULT_DOWNLOAD_LOCATION
+from feed import DEFAULT_DOWNLOAD_LOCATION
 
 
 class TestConfigRequest(unittest.TestCase):
     def test_parse_requests(self):
-        cr = ConfigFileRequest('../tests/test-data/test_config')
+        cr = ConfigFileRequest('tests/sdk/test-data/test_config')
         cr.parse_requests('Bearer v^1...')
         self.assertIsNotNone(cr.requests)
         self.assertEqual(len(cr.requests), 3)

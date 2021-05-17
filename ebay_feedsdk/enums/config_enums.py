@@ -35,7 +35,7 @@ class FeedField(Enum):
     DATE = 'date'
     SCOPE = 'feedScope'
     TYPE = 'type'
-    ENVIRONMENT = 'environment'
+    ENVIRONMENT = 'Environment'
     DOWNLOAD_LOCATION = 'downloadLocation'
     FILE_FORMAT = 'fileFormat'
 

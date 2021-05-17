@@ -19,7 +19,7 @@ import time
 import logging
 import argparse
 from enums.feed_enums import FeedType
-from feed.feed_request import Feed
+from feed import Feed
 from filter.feed_filter import FeedFilterRequest
 from constants.feed_constants import SUCCESS_CODE
 from utils.logging_utils import setup_logging
@@ -41,8 +41,8 @@ parser.add_argument('-mkt', help='the marketplace id for which feed is being req
                     default='EBAY_US')
 # token
 parser.add_argument('-token', help='the oauth token for the consumer. Omit the word \'Bearer\'')
-# environment
-parser.add_argument('-env', help='environment type. Supported Environments are SANDBOX and PRODUCTION',
+# Environment
+parser.add_argument('-env', help='Environment type. Supported Environments are SANDBOX and PRODUCTION',
                     choices=['SANDBOX', 'PRODUCTION'])
 
 # options for filtering the files

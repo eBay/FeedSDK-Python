@@ -49,7 +49,7 @@ class Feed(object):
 
     def __str__(self):
         return '[feed_type= %s, feed_scope= %s, category_id= %s, marketplace_id= %s, feed_date= %s, ' \
-               'environment= %s,  download_location= %s, file_format= %s, token= %s]' % (self.feed_type,
+               'Environment= %s,  download_location= %s, file_format= %s, token= %s]' % (self.feed_type,
                                                                                          self.feed_scope,
                                                                                          self.category_id,
                                                                                          self.marketplace_id,
@@ -64,7 +64,7 @@ class Feed(object):
         :return: GetFeedResponse
         """
         logger.info(
-            'Downloading... \ncategoryId: %s | marketplace: %s | date: %s | feed_scope: %s | environment: %s \n',
+            'Downloading categoryId: %s | marketplace: %s | date: %s | feed_scope: %s | Environment: %s \n',
             self.category_id, self.marketplace_id, self.feed_date, self.feed_scope, self.environment)
         if not self.token:
             return GetFeedResponse(const.FAILURE_CODE, 'No token has been provided', None, None, None)
@@ -118,6 +118,7 @@ class Feed(object):
         # Append the data to the file, might raise an exception
         if status_code == 200:
             file_utils.append_response_to_file(file_handler, feed_response.data)
+
             return const.SUCCESS_CODE, const.SUCCESS_STR
         while status_code == 206:
             # Append the data to the file, might raise an exception
@@ -134,9 +135,12 @@ class Feed(object):
             logger.info('API call #%s\n', api_call_counter)
             # Get the status code
             status_code = feed_response.status
-        if status_code == 206 and not headers[const.RANGE_HEADER]:
+        if status_code == 204:
+            return const.FAILURE_CODE, 'No content, check category id'
+        elif status_code == 206 and not headers[const.RANGE_HEADER]:
             return const.SUCCESS_CODE, const.SUCCESS_STR
         json_response = json.loads(feed_response.data.decode('utf-8'))
+
         return const.FAILURE_CODE, json_response.get('errors')
 
     def __get_query_parameters_and_base_url(self):
@@ -156,16 +160,19 @@ class Feed(object):
                            const.QUERY_DATE: self.feed_date})
         elif self.feed_scope == str(FeedScope.BOOTSTRAP):
             fields.update({const.QUERY_SCOPE: self.feed_scope})
+
         return fields, base_url
 
     def __find_base_url(self):
         if self.environment.lower() == str(Environment.PRODUCTION):
             return const.FEED_API_PROD_URL
+
         return const.FEED_API_SANDBOX_URL
 
     def __find_max_chunk_size(self):
         if self.environment.lower() == str(Environment.PRODUCTION):
             return const.PROD_CHUNK_SIZE
+
         return const.SANDBOX_CHUNK_SIZE
 
     def __generate_file_name(self):
@@ -177,4 +184,5 @@ class Feed(object):
             raise InputDataError('Unknown feed scope', self.feed_scope)
         file_name = str(FeedType.ITEM) + '_' + feed_prefix + '_' + str(self.category_id) + '_' + self.feed_date + \
             '_' + self.marketplace_id + file_utils.get_extension(self.file_format)
+
         return file_name
