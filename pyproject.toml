@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ebay-feedsdk"
-version = "0.2.2"
+version = "0.2.3"
 description = "Port of https://github.com/eBay/FeedSDK-Python and https://github.com/eBay/ebay-oauth-python-client to python3"
 authors = ["Lars Erler <lars@xaospage.de>"]
 license = "Apache-2.0"
@@ -20,8 +20,8 @@ python = "^3.7.1"
 urllib3 = "^1.26.4"
 certifi = "^2020.12.5"
 aenum ="^3.00"
-pandas ="^1.2.4"
-SQLAlchemy ="^1.3.24"
+pandas ="^1.1.1"
+SQLAlchemy ="^1.3.8"
 PyYAML = "^5.4.1"
 requests = "^2.25.1"
 
