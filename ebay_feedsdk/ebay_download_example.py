@@ -18,7 +18,7 @@ class EbayDownloadExample:
         self.market_place = market_place
         self.download_location = download_location
 
-    def download(self, category_id: str):
+    def download(self, category_id: str) -> GetFeedResponse:
         logging.info(
             f'Downloading category {category_id} for {self.market_place} with scope {self.feed_scope}'
             f'to {self.download_location}')
@@ -36,7 +36,7 @@ class EbayDownloadExample:
 
         logging.info(f'File was downloaded under {feed_response.file_path}')
 
-        return feed_response.file_path
+        return feed_response
 
     def get_token(self) -> OauthToken:
         Credentialutil.load(self.config_file)
@@ -55,5 +55,6 @@ if __name__ == "__main__":
     download_location = '/tmp/feed'
     category_id = '2984'  # string ..
     ebay_download = EbayDownloadExample(market_place, Environment.PRODUCTION, feed_scope, download_location)
-    file_path = ebay_download.download(category_id)
+    feed_response = ebay_download.download(category_id)
+    print(feed_response)
 
