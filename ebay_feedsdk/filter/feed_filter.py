@@ -33,7 +33,7 @@ from utils.logging_utils import setup_logging
 setup_logging()
 logger = logging.getLogger(__name__)
 
-Response = namedtuple('Response', 'status_code message file_path applied_filters')
+Response = namedtuple('Response', 'status_code message file_path applied_filters last_modified')
 GetFeedResponse = namedtuple('GetFeedResponse', Response._fields + ('errors',))
 
 BOOL_COLUMNS = {'ImageAlteringProhibited', 'ReturnsAccepted'}

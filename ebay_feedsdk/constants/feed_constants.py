@@ -35,6 +35,7 @@ ACCEPT_HEADER = 'Accept'
 RANGE_HEADER = 'Range'
 
 CONTENT_RANGE_HEADER = 'Content-Range'
+LAST_MODIFIED = 'Last-Modified'
 
 RANGE_PREFIX = 'bytes='
 

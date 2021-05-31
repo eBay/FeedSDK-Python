@@ -67,14 +67,14 @@ class Feed(object):
             'Downloading categoryId: %s | marketplace: %s | date: %s | feed_scope: %s | Environment: %s \n',
             self.category_id, self.marketplace_id, self.feed_date, self.feed_scope, self.environment)
         if not self.token:
-            return GetFeedResponse(const.FAILURE_CODE, 'No token has been provided', None, None, None)
+            return GetFeedResponse(const.FAILURE_CODE, 'No token has been provided', None, None, None, None)
         if path.exists(self.download_location) and not path.isdir(self.download_location):
             return GetFeedResponse(const.FAILURE_CODE, 'Download location is not a directory', self.download_location,
                                    None, None)
         try:
             date_utils.validate_date(self.feed_date, self.feed_type)
         except InputDataError as exp:
-            return GetFeedResponse(const.FAILURE_CODE, exp.msg, self.download_location, None, None)
+            return GetFeedResponse(const.FAILURE_CODE, exp.msg, self.download_location, None, None, None)
         # generate the absolute file path
         file_name = self.__generate_file_name()
         file_path = path.join(self.download_location, file_name)
@@ -83,13 +83,14 @@ class Feed(object):
             file_utils.create_and_replace_binary_file(file_path)
             with open(file_path, 'wb') as file_obj:
                 # Get the feed file data
-                result_code, message = self.__invoke_request(file_obj)
-                return GetFeedResponse(result_code, message, file_path, None, None)
+                result_code, message, last_modified = self.__invoke_request(file_obj)
+
+                return GetFeedResponse(result_code, message, file_path, None, last_modified, None)
         except IOError as exp:
             return GetFeedResponse(const.FAILURE_CODE, 'Could not open file %s : %s' % (file_path, repr(exp)),
-                                   file_path, None, None)
+                                   file_path, None, None, None)
         except (InputDataError, FileCreationError) as exp:
-            return GetFeedResponse(const.FAILURE_CODE, exp.msg, file_path, None, None)
+            return GetFeedResponse(const.FAILURE_CODE, exp.msg, file_path, None, None, None)
 
     def __invoke_request(self, file_handler):
         # initialize API call counter
@@ -110,16 +111,20 @@ class Feed(object):
                                            cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
         # Initial request
         feed_response = http_manager.request('GET', endpoint, parameters, headers)
+        last_modified = None
+        if const.LAST_MODIFIED in feed_response.headers:
+            last_modified = feed_response.headers[const.LAST_MODIFIED]
         # increase and print API call counter
         api_call_counter = api_call_counter + 1
         logger.info('API call #%s\n', api_call_counter)
         # Get the status code
         status_code = feed_response.status
+
         # Append the data to the file, might raise an exception
         if status_code == 200:
             file_utils.append_response_to_file(file_handler, feed_response.data)
 
-            return const.SUCCESS_CODE, const.SUCCESS_STR
+            return const.SUCCESS_CODE, const.SUCCESS_STR, last_modified
         while status_code == 206:
             # Append the data to the file, might raise an exception
             file_utils.append_response_to_file(file_handler, feed_response.data)
@@ -136,12 +141,12 @@ class Feed(object):
             # Get the status code
             status_code = feed_response.status
         if status_code == 204:
-            return const.FAILURE_CODE, 'No content, check category id'
+            return const.FAILURE_CODE, 'No content, check category id', last_modified
         elif status_code == 206 and not headers[const.RANGE_HEADER]:
-            return const.SUCCESS_CODE, const.SUCCESS_STR
+            return const.SUCCESS_CODE, const.SUCCESS_STR, last_modified
         json_response = json.loads(feed_response.data.decode('utf-8'))
 
-        return const.FAILURE_CODE, json_response.get('errors')
+        return const.FAILURE_CODE, json_response.get('errors'), last_modified
 
     def __get_query_parameters_and_base_url(self):
         # Base URL
