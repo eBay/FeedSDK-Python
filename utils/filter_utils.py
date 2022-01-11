@@ -32,7 +32,7 @@ def convert_to_float_max_int(data):
     try:
         return pd.np.float(data)
     except (ValueError, TypeError, AttributeError):
-        return pd.np.float(sys.maxint)
+        return pd.np.float(sys.maxsize)
 
 
 def convert_to_float_zero(data):

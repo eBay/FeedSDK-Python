@@ -76,7 +76,7 @@ class TestFilterUtils(unittest.TestCase):
 
     def convert_to_float_max_int_invalid(self):
         converted_float = filter_utils.convert_to_float_max_int('invalid')
-        self.assertEqual(sys.maxint, converted_float)
+        self.assertEqual(sys.maxsize, converted_float)
 
     def convert_to_float_max_int(self):
         converted_float = filter_utils.convert_to_float_max_int('1.2')
