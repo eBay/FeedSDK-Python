@@ -366,6 +366,6 @@ All the examples are located [__here__](https://github.com/eBay/FeedSDK-Python/t
 * In case of failure in downloading due to network issues, the process needs to start again. There is no capability at the moment, to resume.
 
 # License
-Copyright (c) 2018-2019 eBay Inc.
+Copyright (c) 2018-2022 eBay Inc.
 
 Use of this source code is governed by an Apache 2.0 license that can be found in the LICENSE file or at https://opensource.org/licenses/Apache-2.0.
